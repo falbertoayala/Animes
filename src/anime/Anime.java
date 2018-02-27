@@ -16,64 +16,107 @@ public class Anime {
 
     /**
      * @param args the command line arguments
+     *
      */
+    private static int arraySize = 3;
+    private static Animes arregloAnime[] = new Animes[arraySize];
+    private static Scanner lea = new Scanner(System.in);
+
+    private static boolean checkArraySize() {
+        for (int i = 0; i < arraySize; i++) {
+            if (arregloAnime[i] == null) {
+                return true;
+
+            }
+
+        }
+        return false;
+
+    }
+
+    private static int getArrayPosition() {
+
+        for (int i = 0; i < arraySize; i++) {
+            if (arregloAnime[i] == null) {
+                return i;
+            }
+        }
+        return -1;
+
+    }
+
+    public static void opcionEstudios() {
+
+        if (checkArraySize() == true) {
+
+            String nombreanime = "";
+            String horarioanime = "";
+            String estudioanime = "";
+
+            System.out.println("Menu de Estudios");
+            nombreanime = lea.nextLine();
+            System.out.println("Ingrese nombre del Anime");
+            nombreanime = lea.nextLine();
+
+            System.out.println("Ingrese horario del Anime ---<Inicio-fin> ||<16-20>");
+            horarioanime = lea.nextLine();
+
+            System.out.println("Ingrese Estudio creadora del Anime");
+            estudioanime = lea.nextLine();
+            
+            Animes anime = new Animes(nombreanime, horarioanime, estudioanime);
+            int posicion = getArrayPosition();
+            arregloAnime[posicion] = anime;
+
+        } else {
+            System.out.println("No hay horario disponible para su anime");
+
+        }
+
+    }
+
     public static void main(String[] args) {
-        
+
         int opcion = 0;
-        Scanner lea = new Scanner(System.in);
-        String nombreanime="";
-        String horarioanime="";
-        String estudioanime="";
-        
-            do{
-                
-                try{
+
+        do {
+
+            try {
                 System.out.println("Menu");
                 System.out.println("Opcion #1 ----Estudios");
                 System.out.println("Opcion #2 ----Televisora");
                 System.out.println("Opcion #3 ----Salir");
                 opcion = lea.nextInt();
-                
-                switch (opcion){
-                
+
+                switch (opcion) {
+
                     case 1:
-                         System.out.println("Menu de Estudios");
-                         System.out.println("Ingrese nombre del Anime");
-                         nombreanime = lea.nextLine();
-                         
-                         System.out.println("Ingrese horario del Anime ---<Inicio-fin> ||<16-20>");
-                         horarioanime = lea.nextLine();
-                         
-                         System.out.println("Ingrese Estudio creadora del Anime");
-                         estudioanime = lea.nextLine();
-                         
-                    break;
-                    
+                        opcionEstudios();
+
+                        break;
+
                     case 2:
-                        
-                    break;
-                    
+
+                        break;
+
                     case 3:
-                        
-                    break;
-                    
+
+                        break;
+
                     default:
-                     System.out.println("Opcion no valida");
-                    
+                        System.out.println("Opcion no valida");
+
                 }
-                
-                } catch (Exception ex){
-                    //catch (InputMismatchException ex){
+
+            } catch (Exception ex) {
+                //catch (InputMismatchException ex){
                 lea.nextLine();
                 System.out.println("Ingreso un valor No valido");
-                
-                }
-            }while(opcion !=3);
-                
-        }
-        
-       
-// TODO code application logic here
-    }
-    
 
+            }
+        } while (opcion != 3);
+
+    }
+
+// TODO code application logic here
+}
