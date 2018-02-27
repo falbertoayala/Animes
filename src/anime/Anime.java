@@ -18,10 +18,12 @@ public class Anime {
      * @param args the command line arguments
      *
      */
+    //Codigo Funcion arreglo
     private static int arraySize = 3;
     private static Animes arregloAnime[] = new Animes[arraySize];
     private static Scanner lea = new Scanner(System.in);
 
+    //Codigo Funcion Revisa si el arreglo esta Vacio
     private static boolean checkArraySize() {
         for (int i = 0; i < arraySize; i++) {
             if (arregloAnime[i] == null) {
@@ -33,7 +35,7 @@ public class Anime {
         return false;
 
     }
-
+    //Codigo Funcion Obtiene Posicion del espacion que esta vacio
     private static int getArrayPosition() {
 
         for (int i = 0; i < arraySize; i++) {
