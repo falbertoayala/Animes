@@ -59,9 +59,19 @@ public class Anime {
             nombreanime = lea.nextLine();
             System.out.println("Ingrese nombre del Anime");
             nombreanime = lea.nextLine();
-
-            System.out.println("Ingrese horario del Anime ---<Inicio-fin> ||<16-20>");
+            boolean timevalidation = false;
+            do{
+            System.out.println("Ingrese horario del Anime ---<Inicio-fin> ||<16:00-20:00>");
             horarioanime = lea.nextLine();
+            timevalidation = horarioanime.matches("\\d{2}:\\d{2]-\\d{2}:\\d{2]");
+            if(timevalidation == false ){
+                
+            }else{
+                
+            }
+            } while (timevalidation == false);
+            
+            
 
             System.out.println("Ingrese Estudio creadora del Anime");
             estudioanime = lea.nextLine();
