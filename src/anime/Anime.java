@@ -16,119 +16,151 @@ public class Anime {
 
     /**
      * @param args the command line arguments
-     *
      */
-    //Codigo Funcion arreglo
-    private static int arraySize = 3;
-    private static Animes arregloAnime[] = new Animes[arraySize];
-    private static Scanner lea = new Scanner(System.in);
-
-    //Codigo Funcion Revisa si el arreglo esta Vacio
-    private static boolean checkArraySize() {
-        for (int i = 0; i < arraySize; i++) {
-            if (arregloAnime[i] == null) {
-                return true;
-
+    private static int arraysize=3;
+    private static Animes[] arranimes= new Animes[arraysize];
+    private static Scanner lea=new Scanner(System.in);
+    
+    private static boolean checkarraysize(){
+        for(int i=0; i<arraysize; i++){
+            if (arranimes[i] == null){
+            return true;
             }
-
         }
         return false;
-
     }
-    //Codigo Funcion Obtiene Posicion del espacion que esta vacio
-    private static int getArrayPosition() {
-
-        for (int i = 0; i < arraySize; i++) {
-            if (arregloAnime[i] == null) {
-                return i;
+    
+    private static int getArrayPosition(){
+        for(int i=0; i<arraysize; i++){
+            if (arranimes[i] == null){
+            return i;
             }
         }
         return -1;
-
     }
-
-    public static void opcionEstudios() {
-
-        if (checkArraySize() == true) {
-
-            String nombreanime = "";
-            String horarioanime = "";
-            String estudioanime = "";
-
-            System.out.println("Menu de Estudios");
-            nombreanime = lea.nextLine();
-            System.out.println("Ingrese nombre del Anime");
-            nombreanime = lea.nextLine();
-            boolean timevalidation = false;
-            do{
-            System.out.println("Ingrese horario del Anime ---<Inicio-fin> ||<16:00-20:00>");
-            horarioanime = lea.nextLine();
-            timevalidation = horarioanime.matches("\\d{2}:\\d{2]-\\d{2}:\\d{2]");
-            if(timevalidation == false ){
-                
-            }else{
-                
+    
+    private static boolean isArrayEmpty(){
+        int contador =0;
+        for(int i=0; i<arraysize; i++){
+            if (arranimes[i] == null){
+                contador ++;
+            
             }
-            } while (timevalidation == false);
-            
-            
-
-            System.out.println("Ingrese Estudio creadora del Anime");
-            estudioanime = lea.nextLine();
-            
-            Animes anime = new Animes(nombreanime, horarioanime, estudioanime);
-            int posicion = getArrayPosition();
-            arregloAnime[posicion] = anime;
-
-        } else {
-            System.out.println("No hay horario disponible para su anime");
-
         }
-
+        return contador == arraysize;
     }
-
-    public static void main(String[] args) {
-
-        int opcion = 0;
-
-        do {
-
-            try {
-                System.out.println("Menu");
-                System.out.println("Opcion #1 ----Estudios");
-                System.out.println("Opcion #2 ----Televisora");
-                System.out.println("Opcion #3 ----Salir");
-                opcion = lea.nextInt();
-
-                switch (opcion) {
-
-                    case 1:
-                        opcionEstudios();
-
-                        break;
-
-                    case 2:
-
-                        break;
-
-                    case 3:
-
-                        break;
-
-                    default:
-                        System.out.println("Opcion no valida");
-
-                }
-
-            } catch (Exception ex) {
-                //catch (InputMismatchException ex){
-                lea.nextLine();
-                System.out.println("Ingreso un valor No valido");
-
+       
+    
+    private static boolean horarioanime(String horarioanime){
+        
+        CharSequence primero = horarioanime.subSequence(0, 2);
+        CharSequence segundo = horarioanime.subSequence(3, 5);
+        CharSequence tercero = horarioanime.subSequence(6, 8);
+        CharSequence cuarto = horarioanime.subSequence(9, 11);
+        int prim = Integer.parseInt(primero.toString());
+        int segu = Integer.parseInt(segundo.toString());
+        int ter = Integer.parseInt(tercero.toString());
+        int cuar = Integer.parseInt(cuarto.toString());
+        if (prim>ter){
+        System.out.println("La hora inicial no puede ser mayor a la hora final");
+        return false;
+        }
+        else{
+            if (prim==ter && segu>=cuar){
+            System.out.println("Los minutos de la hora inicial deben ser menores a los minutos de la hora final");
+            return false;
             }
-        } while (opcion != 3);
-
+            else{
+                if (prim>23 || segu>59 || prim<00 || segu<00 || ter>23 || cuar>59 || ter<00 || cuar<00){
+                System.out.println("La hora solo acepta un formato de 23 horas y 59 minutos como maximo");
+                return false;
+                }
+            }
+        }
+    return true;
     }
-
-// TODO code application logic here
+    
+    public boolean existeAnime(String Anime){
+        for(int i=0; i<arraysize;i++){
+            if(arranimes[i].getNombreAnimes().equalsIgnoreCase(Anime)){
+                return true;
+               
+            }
+        }
+        return false;
+    }
+    
+    public static void opcionTelevisora(){
+        
+    }
+    
+    public static void opcionEstudios(){
+        if (checkarraysize() == true){
+            String nombreanime="";
+            String horarioanime="";
+            String estudio="";
+            String horario="";
+            boolean a;
+            System.out.println("Menu de estudios");
+            System.out.println("Ingrese nombre del anime");
+            nombreanime=lea.nextLine();
+            do {
+            System.out.println("Ingrese horario del anime --- (<inicio-fin>) ||<16:45-20:45>");
+                horarioanime=lea.nextLine();
+                a=horarioanime.matches("\\d{2}:\\d{2}\\-\\d{2}:\\d{2}");
+                if(a!=true){
+                System.out.println("Formato incorrecto--- (<inicio-fin>) ||<16-20>");
+                }
+                else{
+                    horarioanime(horarioanime);
+                }
+            }while(a!=true || horarioanime(horarioanime)!=true);
+            System.out.println("Ingrese Estudio creadora del anime");
+            estudio=lea.nextLine();
+            Animes anime = new Animes(nombreanime,horarioanime,estudio);
+            int posicion = getArrayPosition();
+            arranimes[posicion] = anime;
+        } else {
+            System.out.println("Ya no hay horarios disponibles para su anime");
+        }
+    
+    }
+    
+    
+    public static void main(String[] args) {
+        // TODO code application logic here
+        int opcion=0;
+        
+       
+        
+        do{
+        try{
+        System.out.println("Menu");
+        System.out.println("opcion #1 --- Estudios");
+        System.out.println("opcion#2 --- Televisora");
+        System.out.println("opcion#3 --- Salir");
+        opcion = lea.nextInt();
+        lea.nextLine();
+        
+        switch(opcion){
+                case 1 :
+                    opcionEstudios();
+                    break;
+                    
+                case 2 :
+                    
+                    break;
+                    
+                case 3 :
+                    break;
+                default:
+                    System.out.println("Opcion no valida");
+        }
+        }catch(InputMismatchException ex){
+            lea.nextLine();
+            System.out.println("Ingreso un valor no numerico");
+        }
+        }while (opcion!=3);
+    }
+    
 }
